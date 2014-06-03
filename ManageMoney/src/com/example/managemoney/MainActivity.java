@@ -3,6 +3,7 @@ package com.example.managemoney;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -34,7 +35,9 @@ public class MainActivity extends ActionBarActivity {
 		String user = editText.getText().toString(),
 				password = editText2.getText().toString();
 		Toast.makeText(getApplicationContext(),user + " " + password, Toast.LENGTH_SHORT).show();
-		
+		Intent i = new Intent(MainActivity.this, Register.class);
+		this.finish();
+		startActivity(i);
     }
 
     @Override

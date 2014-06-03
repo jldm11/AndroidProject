@@ -7,5 +7,8 @@
     <string name="email">Email</string>
     <string name="login">Login</string>
     <string name="signup">Sign up</string>
+    <string name="name">Name</string>
+    <string name="title_activity_register">Register</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>
