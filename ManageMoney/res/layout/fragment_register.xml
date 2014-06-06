@@ -8,25 +8,69 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.managemoney.Register$PlaceholderFragment" >
 
+    <Spinner
+        android:id="@+id/countrySpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/editText2"
+        android:layout_below="@+id/editText2"
+        android:entries="@array/country_array" />
+
+    <EditText
+        android:id="@+id/editText3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/countrySpinner"
+        android:layout_below="@+id/countrySpinner"
+        android:ems="10"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress" />
+
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/editText1"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="185dp"
+        android:ems="10"
+        android:hint="@string/last_name"
+        android:inputType="textPersonName" >
+    </EditText>
+
     <EditText
         android:id="@+id/editText1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="128dp"
+        android:layout_alignBottom="@+id/editText2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="41dp"
         android:ems="10"
-        android:inputType="textPersonName" />
+        android:hint="@string/name"
+        android:inputType="textPersonName" >
 
-    <TextView
-        android:id="@+id/textView1"
+        <requestFocus />
+        <requestFocus />
+
+    </EditText>
+
+    <EditText
+        android:id="@+id/editText4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/editText1"
-        android:layout_alignLeft="@+id/editText1"
-        android:layout_marginBottom="36dp"
-        android:text="@string/name"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:layout_alignLeft="@+id/editText3"
+        android:layout_below="@+id/editText3"
+        android:ems="10"
+        android:hint="@string/password"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/button1"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText4"
+        android:layout_centerHorizontal="true"
+        android:text="@string/signup" />
 
 </RelativeLayout>

@@ -8,50 +8,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.managemoney.MainActivity$PlaceholderFragment" >
 
-    <EditText
-        android:id="@+id/dPass"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/dMail"
-        android:layout_below="@+id/dMail"
-        android:layout_marginTop="37dp"
-        android:ems="10"
-        android:inputType="textPassword" />
-
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/dMail"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="46dp"
-        android:layout_marginLeft="21dp"
-        android:text="@string/email"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <EditText
-        android:id="@+id/dMail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="168dp"
-        android:ems="10"
-        android:inputType="textEmailAddress" >
-
-        <requestFocus />
-    </EditText>
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/textView1"
-        android:layout_marginTop="21dp"
-        android:text="@string/password"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
@@ -59,25 +15,46 @@
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/dPass"
         android:layout_marginBottom="26dp"
+        android:onClick="signUp"
         android:text="@string/signup" />
+
+   <EditText
+        android:id="@+id/dMail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/dPass"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="32dp"
+        android:layout_marginLeft="36dp"
+        android:ems="10"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress" >
+
+        <requestFocus />
+
+
+
+    </EditText>
+
+    <EditText
+        android:id="@+id/dPass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textView3"
+        android:layout_alignLeft="@+id/dMail"
+        android:layout_marginBottom="175dp"
+        android:ems="10"
+        android:hint="@string/password"
+        android:inputType="textPassword" />
 
     <Button
         android:id="@+id/loginButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/dPass"
+        android:layout_above="@+id/textView3"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="26dp"
+        android:layout_marginBottom="60dp"
         android:onClick="Login"
         android:text="@string/login" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/textView1"
-        android:layout_marginBottom="58dp"
-        android:layout_toRightOf="@+id/textView2"
-        android:text="@string/app_name" />
 
 </RelativeLayout>

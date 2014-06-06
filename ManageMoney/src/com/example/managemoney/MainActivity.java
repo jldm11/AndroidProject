@@ -17,63 +17,66 @@ import android.os.Build;
 
 public class MainActivity extends ActionBarActivity {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
 
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
-                    .commit();
-        }
-    }
+		if (savedInstanceState == null) {
+			getSupportFragmentManager().beginTransaction()
+					.add(R.id.container, new PlaceholderFragment()).commit();
+		}
+	}
 
-    public void Login(View view) {
-    	EditText editText = (EditText)findViewById(R.id.dMail),
-    			editText2 = (EditText)findViewById(R.id.dPass);
-		String user = editText.getText().toString(),
-				password = editText2.getText().toString();
-		Toast.makeText(getApplicationContext(),user + " " + password, Toast.LENGTH_SHORT).show();
+	public void Login(View view) {
+		EditText editText = (EditText) findViewById(R.id.dMail), editText2 = (EditText) findViewById(R.id.dPass);
+		String user = editText.getText().toString(), password = editText2
+				.getText().toString();
+		Toast.makeText(getApplicationContext(), user + " " + password,
+				Toast.LENGTH_SHORT).show();
+	}
+
+	public void signUp(View view) {
 		Intent i = new Intent(MainActivity.this, Register.class);
 		this.finish();
 		startActivity(i);
-    }
+	}
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
 
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-////        if (id == R.id.action_settings) {
-////            return true;
-////        }
-//        return super.onOptionsItemSelected(item);
-//    }
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
+	// @Override
+	// public boolean onOptionsItemSelected(MenuItem item) {
+	// // Handle action bar item clicks here. The action bar will
+	// // automatically handle clicks on the Home/Up button, so long
+	// // as you specify a parent activity in AndroidManifest.xml.
+	// int id = item.getItemId();
+	// // if (id == R.id.action_settings) {
+	// // return true;
+	// // }
+	// return super.onOptionsItemSelected(item);
+	// }
 
-        public PlaceholderFragment() {
-        }
+	/**
+	 * A placeholder fragment containing a simple view.
+	 */
+	public static class PlaceholderFragment extends Fragment {
 
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-            return rootView;
-        }
-    }
+		public PlaceholderFragment() {
+		}
+
+		@Override
+		public View onCreateView(LayoutInflater inflater, ViewGroup container,
+				Bundle savedInstanceState) {
+			View rootView = inflater.inflate(R.layout.fragment_main, container,
+					false);
+			return rootView;
+		}
+	}
 
 }

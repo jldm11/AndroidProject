@@ -1,5 +1,7 @@
 package com.example.managemoney;
 
+//import java.util.List;
+
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -9,20 +11,37 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+//import android.widget.ArrayAdapter;
+//import android.widget.Spinner;
 import android.os.Build;
 
 public class Register extends ActionBarActivity {
+//	private Spinner spinner;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_register);
+//		addItemsOnSpinner();
 
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
+
 	}
+
+//	private void addItemsOnSpinner() {
+//		spinner = (Spinner) findViewById(R.id.countrySpinner);
+//
+//		Countries country = new Countries();
+//		List<String> coun = country.getCountries();
+//
+//		ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+//				android.R.layout.simple_spinner_item, coun);
+//		dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//		spinner.setAdapter(dataAdapter);
+//	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
