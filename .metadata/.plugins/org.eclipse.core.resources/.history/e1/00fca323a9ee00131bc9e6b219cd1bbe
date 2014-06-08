@@ -1,0 +1,17 @@
+
+#Access with method GET
+getUser = http://192.168.1.95/WebServiceMoneyApp/functions/getUser/jldm@gmail.com/abcd.json
+getAccount = http://192.168.56.1:8080/WebServiceMoneyApp/functions/getUser/
+getMovement = http://192.168.56.1:8080/WebServiceMoneyApp/functions/getUser/
+getDetail = http://192.168.56.1:8080/WebServiceMoneyApp/functions/getUser/
+
+#Access with method POST
+insertUser = http://192.168.56.1/WebServiceMoneyApp/functions/insertUser 
+insertAccount = http://192.168.56.1/WebServiceMoneyApp/functions/insertAccount
+insertMovement = http://192.168.56.1/WebServiceMoneyApp/functions/insertMovement
+insertDetail = http://192.168.56.1/WebServiceMoneyApp/functions/insertDetail
+
+updateUser = http://192.168.56.1/WebServiceMoneyApp/functions/updateUser
+updateAccount = http://192.168.56.1/WebServiceMoneyApp/functions/updateAccount
+updateMovement = http://192.168.56.1/WebServiceMoneyApp/functions/updateMovement
+updateDetail = http://192.168.56.1/WebServiceMoneyApp/functions/updateDetail

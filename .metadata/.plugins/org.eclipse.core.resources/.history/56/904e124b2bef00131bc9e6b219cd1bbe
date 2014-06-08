@@ -1,0 +1,17 @@
+
+#Access with method GET
+getUser = http://192.168.1.95:8080/WebServiceMoneyApp/functions/getUser/
+getAccount = http://192.168.1.95:8080/WebServiceMoneyApp/functions/getAccount/
+getMovement = http://192.168.1.95:8080/WebServiceMoneyApp/functions/getMovement/
+getDetail = http://192.168.1.95:8080/WebServiceMoneyApp/functions/getDetail/
+
+#Access with method POST
+insertUser = http://192.168.1.95/WebServiceMoneyApp/functions/insertUser? 
+insertAccount = http://192.168.1.95/WebServiceMoneyApp/functions/insertAccount
+insertMovement = http://192.168.1.95/WebServiceMoneyApp/functions/insertMovement
+insertDetail = http://192.168.1.95/WebServiceMoneyApp/functions/insertDetail
+
+updateUser = http://192.168.1.95/WebServiceMoneyApp/functions/updateUser
+updateAccount = http://192.168.1.95/WebServiceMoneyApp/functions/updateAccount
+updateMovement = http://192.168.1.95/WebServiceMoneyApp/functions/updateMovement
+updateDetail = http://192.168.1.95/WebServiceMoneyApp/functions/updateDetail

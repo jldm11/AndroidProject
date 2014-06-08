@@ -1,26 +1,50 @@
 package com.example.managemoney;
 
+import java.util.Properties;
+import java.util.concurrent.ExecutionException;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.example.managemoney.R.id;
+
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.os.Build;
 
 public class MainActivity extends ActionBarActivity {
+
+	private AssetsPropertyReader assetsPropertyReader;
+	private Context context;
+	private Properties properties;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		context = this;
+		assetsPropertyReader = new AssetsPropertyReader(context);
+		properties = assetsPropertyReader.getProperties("urls.properties");
+		// check if you are connected or not
+		if (!isConnected()) {
+			Toast.makeText(getApplicationContext(), "You are NOT connected",
+					Toast.LENGTH_SHORT).show();
+		} else {
+			Toast.makeText(getApplicationContext(), "You are connected",
+					Toast.LENGTH_SHORT).show();
+		}
 
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
@@ -28,15 +52,41 @@ public class MainActivity extends ActionBarActivity {
 		}
 	}
 
-	public void Login(View view) {
-		EditText editText = (EditText) findViewById(R.id.dMail), editText2 = (EditText) findViewById(R.id.dPass);
-		String user = editText.getText().toString(), password = editText2
+	public void login(View view) {
+		EditText editTextEmail = (EditText) findViewById(R.id.dMail), editTextPassword = (EditText) findViewById(R.id.dPass);
+		String email = editTextEmail.getText().toString(), password = editTextPassword
 				.getText().toString();
-		Toast.makeText(getApplicationContext(), user + " " + password,
-				Toast.LENGTH_SHORT).show();
+		// Verify data
+		//HttpAsyncTask getUserTask = new HttpAsyncTask();
+		String [] request = {"GET","user",properties.getProperty("getUser") + email + "/"
+				+ password,""};
+		WebServiceClient wsClient = new WebServiceClient();
+		wsClient.execute(request);
+		JSONObject userJSON;
+		try {
+			userJSON = wsClient.get();
+			String idUser = userJSON.get("idUser").toString();
+			if (idUser != "0") {
+				Toast.makeText(getApplicationContext(), "Loged in " + idUser,
+						Toast.LENGTH_SHORT).show();
+				// change activity
+				Intent i = new Intent(MainActivity.this, Register.class);
+				this.finish();
+				startActivity(i);
+			}
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
-	public void signUp(View view) {
+	public void openSignUpActivity(View view) {
 		Intent i = new Intent(MainActivity.this, Register.class);
 		this.finish();
 		startActivity(i);
@@ -50,6 +100,15 @@ public class MainActivity extends ActionBarActivity {
 		return true;
 	}
 
+	public boolean isConnected() {
+		ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Activity.CONNECTIVITY_SERVICE);
+		NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+		if (networkInfo != null && networkInfo.isConnected())
+			return true;
+		else
+			return false;
+	}
+
 	// @Override
 	// public boolean onOptionsItemSelected(MenuItem item) {
 	// // Handle action bar item clicks here. The action bar will
@@ -61,6 +120,13 @@ public class MainActivity extends ActionBarActivity {
 	// // }
 	// return super.onOptionsItemSelected(item);
 	// }
+//	private class HttpAsyncTask extends AsyncTask<String, Void, JSONObject> {
+//		@Override
+//		protected JSONObject doInBackground(String... urls) {
+//
+//			return wsClient.getJSONFromURL(urls[0]);
+//		}
+//	}
 
 	/**
 	 * A placeholder fragment containing a simple view.

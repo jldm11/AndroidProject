@@ -2,8 +2,9 @@ package com.example.managemoney;
 
 //import java.util.List;
 
+import java.util.Properties;
+
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,19 +12,24 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Toast;
 //import android.widget.ArrayAdapter;
 //import android.widget.Spinner;
-import android.os.Build;
 
 public class Register extends ActionBarActivity {
-//	private Spinner spinner;
+	// private Spinner spinner;
+	private AssetsPropertyReader assetsPropertyReader;
+	private Properties properties;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_register);
-//		addItemsOnSpinner();
-
+		// addItemsOnSpinner();
+		assetsPropertyReader = new AssetsPropertyReader(getApplicationContext());
+		properties = assetsPropertyReader.getProperties("urls.properties");
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
@@ -31,17 +37,38 @@ public class Register extends ActionBarActivity {
 
 	}
 
-//	private void addItemsOnSpinner() {
-//		spinner = (Spinner) findViewById(R.id.countrySpinner);
-//
-//		Countries country = new Countries();
-//		List<String> coun = country.getCountries();
-//
-//		ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-//				android.R.layout.simple_spinner_item, coun);
-//		dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//		spinner.setAdapter(dataAdapter);
-//	}
+	public void recordUser(View view) {
+		Toast.makeText(getApplicationContext(), "signup", Toast.LENGTH_SHORT)
+				.show();
+		// Get user data
+		EditText editTextName = (EditText) findViewById(R.id.registerName), editTextLastName = (EditText) findViewById(R.id.registerLastName), editTextEmail = (EditText) findViewById(R.id.registerEmail), editTextPassword = (EditText) findViewById(R.id.registerPassword);
+		Spinner spinnerCountry = (Spinner) findViewById(R.id.countrySpinner);
+		String name = editTextName.getText().toString(), lastName = editTextLastName
+				.getText().toString(), country = spinnerCountry
+				.getSelectedItem().toString(), email = editTextEmail.getText()
+				.toString(), password = editTextPassword.getText().toString();
+		String[] request = {
+				"POST",
+				"user",
+				properties.getProperty("insertUser"),
+				name + "," + lastName + "," + "" + "," + country + "," + email
+						+ "," + password };
+		// Execute POST
+		WebServiceClient wsClient = new WebServiceClient();
+		wsClient.execute(request);
+	}
+
+	// private void addItemsOnSpinner() {
+	// spinner = (Spinner) findViewById(R.id.countrySpinner);
+	//
+	// Countries country = new Countries();
+	// List<String> coun = country.getCountries();
+	//
+	// ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+	// android.R.layout.simple_spinner_item, coun);
+	// dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+	// spinner.setAdapter(dataAdapter);
+	// }
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
