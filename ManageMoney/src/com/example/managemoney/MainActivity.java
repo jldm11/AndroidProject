@@ -63,6 +63,7 @@ public class MainActivity extends ActionBarActivity {
 		v.vibrate(500);
 		speaker.speakText("Logged in");
 		Intent i = new Intent(MainActivity.this, Accounts.class);
+//		Intent i = new Intent(MainActivity.this, ListAccountView.class);
 		this.finish();
 		startActivity(i);
 	}
