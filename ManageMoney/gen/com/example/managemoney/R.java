@@ -1219,20 +1219,24 @@ containing a value of this type.
         public static final int activity_accounts=0x7f030018;
         public static final int activity_list_account_view=0x7f030019;
         public static final int activity_main=0x7f03001a;
-        public static final int activity_register=0x7f03001b;
-        public static final int fragment_accounts=0x7f03001c;
-        public static final int fragment_list_account_view=0x7f03001d;
-        public static final int fragment_main=0x7f03001e;
-        public static final int fragment_register=0x7f03001f;
-        public static final int list_account=0x7f030020;
-        public static final int support_simple_spinner_dropdown_item=0x7f030021;
+        public static final int activity_movements_list=0x7f03001b;
+        public static final int activity_register=0x7f03001c;
+        public static final int fragment_accounts=0x7f03001d;
+        public static final int fragment_list_account_view=0x7f03001e;
+        public static final int fragment_main=0x7f03001f;
+        public static final int fragment_movements_list=0x7f030020;
+        public static final int fragment_register=0x7f030021;
+        public static final int list_account=0x7f030022;
+        public static final int list_movement=0x7f030023;
+        public static final int support_simple_spinner_dropdown_item=0x7f030024;
     }
     public static final class menu {
         public static final int account_view=0x7f0d0000;
         public static final int accounts=0x7f0d0001;
         public static final int list_account_view=0x7f0d0002;
         public static final int main=0x7f0d0003;
-        public static final int register=0x7f0d0004;
+        public static final int movements_list=0x7f0d0004;
+        public static final int register=0x7f0d0005;
     }
     public static final class string {
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 
@@ -1288,6 +1292,7 @@ containing a value of this type.
         public static final int title_activity_account_view=0x7f0a0019;
         public static final int title_activity_accounts=0x7f0a0018;
         public static final int title_activity_list_account_view=0x7f0a001b;
+        public static final int title_activity_movements_list=0x7f0a001c;
         public static final int title_activity_register=0x7f0a0016;
         public static final int user_name=0x7f0a0017;
     }

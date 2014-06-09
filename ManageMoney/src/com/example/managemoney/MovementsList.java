@@ -1,9 +1,9 @@
 package com.example.managemoney;
 
-
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.app.ListActivity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -11,23 +11,23 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 import android.os.Build;
 
-public class ListAccountView extends ListActivity {
-	static final String[] ACCOUNTS = new String[] { "Debit Card",
-    "Work payments", "School payments", "Home expenses" };
-	
+public class MovementsList extends ListActivity {
 
+	static final String[] MOVEMENTS = new String[] {
+		"Income from others: $300", "Monthly payment: $1500","February payment: $500"
+	};
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-//		setContentView(R.layout.activity_list_account_view);
-		setListAdapter(new ArrayAdapter<String>(this, R.layout.list_account,ACCOUNTS));
+//		setContentView(R.layout.activity_movements_list);
+		setListAdapter(new ArrayAdapter<String>(this, R.layout.list_movement,MOVEMENTS));
 		ListView listView = getListView();
 		listView.setTextFilterEnabled(true);
 		
@@ -35,18 +35,17 @@ public class ListAccountView extends ListActivity {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 			    // When clicked, show a toast with the TextView text
-//			    Toast.makeText(getApplicationContext(),	((TextView)view).getText(), Toast.LENGTH_SHORT).show();
-				Intent i = new Intent(ListAccountView.this, MovementsList.class);
-				startActivity(i);
+			    Toast.makeText(getApplicationContext(),	((TextView)view).getText(), Toast.LENGTH_SHORT).show();
 			}
 		});
+		
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.list_account_view, menu);
+		getMenuInflater().inflate(R.menu.movements_list, menu);
 		return true;
 	}
 
@@ -73,8 +72,8 @@ public class ListAccountView extends ListActivity {
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(
-					R.layout.fragment_list_account_view, container, false);
+			View rootView = inflater.inflate(R.layout.fragment_movements_list,
+					container, false);
 			return rootView;
 		}
 	}
