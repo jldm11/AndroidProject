@@ -3,7 +3,9 @@ package com.example.managemoney;
 
 import android.support.v4.app.Fragment;
 import android.app.ListActivity;
+import android.content.Context;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,6 +23,7 @@ public class DetailsView extends ListActivity {
 	private Speaker speaker;
 	static final String[] DETAILS = new String[] { "University monthly pay: $450",
 	    "Swimming class: $160" };
+	Vibrator v;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -28,12 +31,13 @@ public class DetailsView extends ListActivity {
 		setListAdapter(new ArrayAdapter<String>(this, R.layout.detail_list,DETAILS));
 		ListView listView = getListView();
 		listView.setTextFilterEnabled(true);
-		
+		v = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
 		listView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 			    // When clicked, show a toast with the TextView text
 				speaker.speakText((String)((TextView)view).getText());
+				v.vibrate(500);
 			    Toast.makeText(getApplicationContext(),	((TextView)view).getText(), Toast.LENGTH_SHORT).show();
 			}
 		});

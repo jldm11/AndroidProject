@@ -1,10 +1,11 @@
 package com.example.managemoney;
 
-
 import android.support.v4.app.Fragment;
 import android.app.ListActivity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,26 +20,31 @@ import android.widget.Toast;
 import android.os.Build;
 
 public class ListAccountView extends ListActivity {
-	
+
 	private Speaker speaker;
 	static final String[] ACCOUNTS = new String[] { "Debit Card",
-    "Work payments", "School payments", "Home expenses" };
-	
+			"Work payments", "School payments", "Home expenses" };
+	Vibrator v;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		speaker = new Speaker(this);
-//		setContentView(R.layout.activity_list_account_view);
-		setListAdapter(new ArrayAdapter<String>(this, R.layout.list_account,ACCOUNTS));
+		// setContentView(R.layout.activity_list_account_view);
+		setListAdapter(new ArrayAdapter<String>(this, R.layout.list_account,
+				ACCOUNTS));
 		ListView listView = getListView();
 		listView.setTextFilterEnabled(true);
-		
+		v = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
+
 		listView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-			    // When clicked, show a toast with the TextView text
-//			    Toast.makeText(getApplicationContext(),	((TextView)view).getText(), Toast.LENGTH_SHORT).show();
-				speaker.speakText((String)((TextView)view).getText());
+				// When clicked, show a toast with the TextView text
+				// Toast.makeText(getApplicationContext(),
+				// ((TextView)view).getText(), Toast.LENGTH_SHORT).show();
+				speaker.speakText("Movements for "+ (String)((TextView)view).getText());
+				v.vibrate(500);
 				Intent i = new Intent(ListAccountView.this, MovementsList.class);
 				startActivity(i);
 			}
@@ -51,7 +57,7 @@ public class ListAccountView extends ListActivity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.list_account_view, menu);
 		return super.onCreateOptionsMenu(menu);
-//		return true;
+		// return true;
 	}
 
 	@Override

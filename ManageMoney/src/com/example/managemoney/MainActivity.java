@@ -50,7 +50,7 @@ public class MainActivity extends ActionBarActivity {
 			Toast.makeText(getApplicationContext(), "You are connected",
 					Toast.LENGTH_SHORT).show();
 		}
-
+		v.vibrate(500);
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
@@ -68,7 +68,7 @@ public class MainActivity extends ActionBarActivity {
 		Toast.makeText(getApplicationContext(), "Log in", Toast.LENGTH_SHORT)
 				.show();
 		v.vibrate(500);
-		speaker.speakText("Logged in");
+		speaker.speakText("This are your available accounts");
 		// Intent i = new Intent(MainActivity.this, Accounts.class);
 		Intent i = new Intent(MainActivity.this, ListAccountView.class);
 		this.finish();

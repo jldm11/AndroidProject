@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/registerLastName"
         android:layout_below="@+id/registerLastName"
+        android:textSize="22sp"
         android:entries="@array/country_array"/>
 
     <EditText
@@ -23,6 +24,7 @@
         android:layout_alignLeft="@+id/countrySpinner"
         android:layout_below="@+id/countrySpinner"
         android:ems="10"
+        android:textSize="22sp"
         android:hint="@string/email"
         android:inputType="textEmailAddress" 
         android:onClick="speakEmail"/>
@@ -31,6 +33,7 @@
         android:id="@+id/registerLastName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="22sp"
         android:layout_alignLeft="@+id/registerName"
         android:layout_alignParentTop="true"
         android:layout_marginTop="185dp"
@@ -48,6 +51,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="41dp"
         android:ems="10"
+        android:textSize="22sp"
         android:hint="@string/name"
         android:inputType="textPersonName" 
         android:onClick="speakName">
@@ -64,6 +68,7 @@
         android:layout_alignLeft="@+id/registerEmail"
         android:layout_below="@+id/registerEmail"
         android:ems="10"
+        android:textSize="22sp"
         android:hint="@string/password"
         android:inputType="textPassword" 
         android:onClick="speakPassword"/>

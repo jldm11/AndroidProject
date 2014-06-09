@@ -7,6 +7,7 @@ import java.util.Properties;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.view.LayoutInflater;
@@ -53,6 +54,13 @@ public class Register extends ActionBarActivity {
 		.show();
 		v.vibrate(500);
 		speakSignUp();
+		changeActivity();		
+	}
+	
+	public void changeActivity(){
+		Intent i = new Intent(Register.this, ListAccountView.class);
+		startActivity(i);
+		this.finish();
 	}
 //	public void recordUser(View view) {
 //		Toast.makeText(getApplicationContext(), "signup", Toast.LENGTH_SHORT)
@@ -104,7 +112,7 @@ public class Register extends ActionBarActivity {
 
 	public void speakSignUp() {
 		v.vibrate(500);
-		speaker.speakText("Sign Up");
+		speaker.speakText("This are your available accounts");
 	}
 
 	// private void addItemsOnSpinner() {
