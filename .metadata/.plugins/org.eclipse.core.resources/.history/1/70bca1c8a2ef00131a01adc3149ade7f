@@ -15,7 +15,6 @@
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/dPass"
         android:layout_marginBottom="26dp"
-        android:textSize="22sp"
         android:clickable="true"
         android:onClick="openSignUpActivity"
         android:text="@string/signup"

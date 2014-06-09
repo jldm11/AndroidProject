@@ -48,7 +48,7 @@ public class Register extends ActionBarActivity {
 
 	}
 
-	public void recorUser(View view){
+	public void recordUser(View view){
 		Toast.makeText(getApplicationContext(), "signup", Toast.LENGTH_SHORT)
 		.show();
 		v.vibrate(500);
