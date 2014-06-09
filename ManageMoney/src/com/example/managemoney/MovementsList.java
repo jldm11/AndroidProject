@@ -1,9 +1,9 @@
 package com.example.managemoney;
 
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
+
 import android.support.v4.app.Fragment;
 import android.app.ListActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -20,13 +20,14 @@ import android.os.Build;
 
 public class MovementsList extends ListActivity {
 
+	private Speaker speaker;
 	static final String[] MOVEMENTS = new String[] {
-		"Income from others: $300", "Monthly payment: $1500","February payment: $500"
+		"Income from others: $300", "Monthly payment: $1500","February payment: $800"
 	};
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-//		setContentView(R.layout.activity_movements_list);
+		speaker = new Speaker(this);
 		setListAdapter(new ArrayAdapter<String>(this, R.layout.list_movement,MOVEMENTS));
 		ListView listView = getListView();
 		listView.setTextFilterEnabled(true);
@@ -35,7 +36,10 @@ public class MovementsList extends ListActivity {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 			    // When clicked, show a toast with the TextView text
-			    Toast.makeText(getApplicationContext(),	((TextView)view).getText(), Toast.LENGTH_SHORT).show();
+//			    Toast.makeText(getApplicationContext(),	((TextView)view).getText(), Toast.LENGTH_SHORT).show();
+				speaker.speakText((String)((TextView)view).getText());
+				Intent i = new Intent(MovementsList.this, DetailsView.class);
+				startActivity(i);
 			}
 		});
 		

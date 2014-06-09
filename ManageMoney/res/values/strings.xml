@@ -123,5 +123,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_list_account_view">ListAccountView</string>
     <string name="title_activity_movements_list">MovementsList</string>
+    <string name="title_activity_details_view">DetailsView</string>
 
 </resources>

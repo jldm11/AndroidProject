@@ -43,6 +43,10 @@
             android:name="com.example.managemoney.MovementsList"
             android:label="@string/title_activity_movements_list" >
         </activity>
+        <activity
+            android:name="com.example.managemoney.DetailsView"
+            android:label="@string/title_activity_details_view" >
+        </activity>
     </application>
 
 </manifest>
