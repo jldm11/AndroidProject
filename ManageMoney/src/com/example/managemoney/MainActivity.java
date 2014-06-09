@@ -17,6 +17,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -29,12 +30,15 @@ public class MainActivity extends ActionBarActivity {
 	private AssetsPropertyReader assetsPropertyReader;
 	private Context context;
 	private Properties properties;
-
+	private Speaker speaker;
+	private Vibrator v;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		context = this;
+		speaker = new Speaker(context);
+		v = (Vibrator) this.context.getSystemService(Context.VIBRATOR_SERVICE);
 		assetsPropertyReader = new AssetsPropertyReader(context);
 		properties = assetsPropertyReader.getProperties("urls.properties");
 		// check if you are connected or not
@@ -52,46 +56,67 @@ public class MainActivity extends ActionBarActivity {
 		}
 	}
 
-	public void login(View view) {
-		EditText editTextEmail = (EditText) findViewById(R.id.dMail), editTextPassword = (EditText) findViewById(R.id.dPass);
-		String email = editTextEmail.getText().toString(), password = editTextPassword
-				.getText().toString();
-		// Verify data
-		//HttpAsyncTask getUserTask = new HttpAsyncTask();
-		String [] request = {"GET","user",properties.getProperty("getUser") + email + "/"
-				+ password,""};
-		WebServiceClient wsClient = new WebServiceClient();
-		wsClient.execute(request);
-		JSONObject userJSON;
-		try {
-			userJSON = wsClient.get();
-			String idUser = userJSON.get("idUser").toString();
-			if (idUser != "0") {
-				Toast.makeText(getApplicationContext(), "Loged in " + idUser,
-						Toast.LENGTH_SHORT).show();
-				// change activity
-				Intent i = new Intent(MainActivity.this, Register.class);
-				this.finish();
-				startActivity(i);
-			}
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ExecutionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	//Hard coded
+	public void login(View view){
+		Toast.makeText(getApplicationContext(), "Log in", Toast.LENGTH_SHORT)
+		.show();
+		v.vibrate(500);
+		speaker.speakText("Logged in");
 	}
+//	public void login(View view) {
+//		EditText editTextEmail = (EditText) findViewById(R.id.dMail), editTextPassword = (EditText) findViewById(R.id.dPass);
+//		String email = editTextEmail.getText().toString(), password = editTextPassword
+//				.getText().toString();
+//		// Verify data
+//		//HttpAsyncTask getUserTask = new HttpAsyncTask();
+//		String [] request = {"GET","user",properties.getProperty("getUser") + email + "/"
+//				+ password,""};
+//		WebServiceClient wsClient = new WebServiceClient();
+//		wsClient.execute(request);
+//		JSONObject userJSON;
+//		try {
+//			userJSON = wsClient.get();
+//			String idUser = userJSON.get("idUser").toString();
+//			if (idUser != "0") {
+//				Toast.makeText(getApplicationContext(), "Loged in " + idUser,
+//						Toast.LENGTH_SHORT).show();
+//				speaker.speakText("Logged in");
+//				// change activity
+//				Intent i = new Intent(MainActivity.this, Register.class);
+//				this.finish();
+//				startActivity(i);
+//			}
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (ExecutionException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (JSONException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}	
+//	}
 
 	public void openSignUpActivity(View view) {
 		Intent i = new Intent(MainActivity.this, Register.class);
 		this.finish();
 		startActivity(i);
+		speakSignUp();
 	}
-
+	//Speak Actions
+	public void speakEmail(View view) {
+		v.vibrate(500);
+		speaker.speakText("Type your email");
+	}
+	public void speakPassword(View view) {
+		v.vibrate(500);
+		speaker.speakText("Type your password");
+	}
+	public void speakSignUp() {
+		v.vibrate(500);
+		speaker.speakText("Sign Up");
+	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 

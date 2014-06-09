@@ -18,7 +18,7 @@
         android:clickable="true"
         android:onClick="openSignUpActivity"
         android:text="@string/signup"
-        android:textColor="@color/blue" />
+        android:textColor="@color/black" />
 
    <EditText
         android:id="@+id/dMail"
@@ -30,7 +30,8 @@
         android:layout_marginLeft="36dp"
         android:ems="10"
         android:hint="@string/email"
-        android:inputType="textEmailAddress" >
+        android:inputType="textEmailAddress" 
+        android:onClick="speakEmail">
 
         <requestFocus />
 
@@ -47,7 +48,9 @@
         android:layout_marginBottom="175dp"
         android:ems="10"
         android:hint="@string/password"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:onClick="speakPassword"/>
+    
 
     <Button
         android:id="@+id/loginButton"
@@ -58,5 +61,14 @@
         android:layout_marginBottom="60dp"
         android:onClick="login"
         android:text="@string/login" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/dMail"
+        android:layout_alignLeft="@+id/loginButton"
+        android:layout_marginBottom="32dp"
+        android:src="@drawable/ic_launcher" />
 
 </RelativeLayout>

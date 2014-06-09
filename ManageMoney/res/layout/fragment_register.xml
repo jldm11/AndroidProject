@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/registerLastName"
         android:layout_below="@+id/registerLastName"
-        android:entries="@array/country_array" />
+        android:entries="@array/country_array"/>
 
     <EditText
         android:id="@+id/registerEmail"
@@ -24,7 +24,8 @@
         android:layout_below="@+id/countrySpinner"
         android:ems="10"
         android:hint="@string/email"
-        android:inputType="textEmailAddress" />
+        android:inputType="textEmailAddress" 
+        android:onClick="speakEmail"/>
 
     <EditText
         android:id="@+id/registerLastName"
@@ -35,7 +36,8 @@
         android:layout_marginTop="185dp"
         android:ems="10"
         android:hint="@string/last_name"
-        android:inputType="textPersonName" >
+        android:inputType="textPersonName" 
+        android:onClick="speakLastName">
     </EditText>
 
     <EditText
@@ -47,7 +49,8 @@
         android:layout_marginBottom="41dp"
         android:ems="10"
         android:hint="@string/name"
-        android:inputType="textPersonName" >
+        android:inputType="textPersonName" 
+        android:onClick="speakName">
 
         <requestFocus />
         <requestFocus />
@@ -62,7 +65,8 @@
         android:layout_below="@+id/registerEmail"
         android:ems="10"
         android:hint="@string/password"
-        android:inputType="textPassword" />
+        android:inputType="textPassword" 
+        android:onClick="speakPassword"/>
 
     <Button
         android:id="@+id/registerSignUp"
