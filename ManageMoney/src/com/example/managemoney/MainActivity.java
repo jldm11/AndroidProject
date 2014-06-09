@@ -57,6 +57,12 @@ public class MainActivity extends ActionBarActivity {
 		}
 	}
 
+	public void speakRegisterScreen() {
+		v.vibrate(500);
+		speaker.speakText("Sign Up, Please entry your data to register you as a new user");
+	}
+	
+	
 	// Hard coded
 	public void login(View view) {
 		Toast.makeText(getApplicationContext(), "Log in", Toast.LENGTH_SHORT)
@@ -110,10 +116,10 @@ public class MainActivity extends ActionBarActivity {
 	public void openSignUpActivity(View view) {
 		Intent i = new Intent(MainActivity.this, Register.class);
 		this.finish();
-		startActivity(i);
-		speakSignUp();
+		startActivity(i);	
+		speakRegisterScreen();
 	}
-
+	
 	// Speak Actions
 	public void speakEmail(View view) {
 		v.vibrate(500);

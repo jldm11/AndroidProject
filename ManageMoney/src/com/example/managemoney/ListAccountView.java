@@ -50,7 +50,8 @@ public class ListAccountView extends ListActivity {
 
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.list_account_view, menu);
-		return true;
+		return super.onCreateOptionsMenu(menu);
+//		return true;
 	}
 
 	@Override

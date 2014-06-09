@@ -76,6 +76,7 @@
         android:layout_below="@+id/registerPassword"
         android:layout_centerHorizontal="true"
         android:onClick="recordUser"
-        android:text="@string/signup"/>
+        android:text="@string/signup"
+        android:textSize="22sp"/>
 
 </RelativeLayout>
