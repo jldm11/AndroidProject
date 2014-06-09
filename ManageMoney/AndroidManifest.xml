@@ -31,6 +31,10 @@
             android:name="com.example.managemoney.Register"
             android:label="@string/title_activity_register" >
         </activity>
+        <activity
+            android:name="com.example.managemoney.Accounts"
+            android:label="@string/title_activity_accounts" >
+        </activity>
     </application>
 
 </manifest>

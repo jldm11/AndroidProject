@@ -62,6 +62,9 @@ public class MainActivity extends ActionBarActivity {
 		.show();
 		v.vibrate(500);
 		speaker.speakText("Logged in");
+		Intent i = new Intent(MainActivity.this, Accounts.class);
+		this.finish();
+		startActivity(i);
 	}
 //	public void login(View view) {
 //		EditText editTextEmail = (EditText) findViewById(R.id.dMail), editTextPassword = (EditText) findViewById(R.id.dPass);

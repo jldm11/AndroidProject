@@ -11,105 +11,113 @@
     <string name="last_name">Last name</string>
     <string name="country">Country</string>
     <string name="title_activity_register">Register</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="user_name">Lolita Delgado</string>
     
+    <string-array name="account_names">
+        <item>Debit Card</item>
+        <item>Work payments</item>
+        <item>School payments</item>
+    </string-array>
+
     <string-array name="country_array">
         <item>Albania</item>
-		<item>Alemania</item>
-		<item>Arabia Saudita</item>
-		<item>Argelia</item>
-		<item>Argentina</item>
-		<item>Australia</item>
-		<item>Austria</item>
-		<item>Bahráin</item>
-		<item>Bielorrusia</item>
-		<item>Bolivia</item>
-		<item>Bosnia y Hercegovina</item>
-		<item>Brasil</item>
-		<item>Bulgaria</item>
-		<item>Bélgica</item>
-		<item>Canadá</item>
-		<item>Chequia</item>
-		<item>Chile</item>
-		<item>China</item>
-		<item>Chipre</item>
-		<item>Colombia</item>
-		<item>Corea del Sur</item>
-		<item>Costa Rica</item>
-		<item>Croacia</item>
-		<item>Cuba</item>
-		<item>Dinamarca</item>
-		<item>Ecuador</item>
-		<item>Egipto</item>
-		<item>El Salvador</item>
-		<item>Emiratos Árabes Unidos</item>
-		<item>Eslovaquia</item>
-		<item>Eslovenia</item>
-		<item>España</item>
-		<item>Estados Unidos</item>
-		<item>Estonia</item>
-		<item>Filipinas</item>
-		<item>Finlandia</item>
-		<item>Francia</item>
-		<item>Grecia</item>
-		<item>Guatemala</item>
-		<item>Holanda</item>
-		<item>Honduras</item>
-		<item>Hong Kong</item>
-		<item>Hungría</item>
-		<item>India</item>
-		<item>Indonesia</item>
-		<item>Iraq</item>
-		<item>Irlanda</item>
-		<item>Islandia</item>
-		<item>Israel</item>
-		<item>Italia</item>
-		<item>Japón</item>
-		<item>Jordania</item>
-		<item>Kuwait</item>
-		<item>Letonia</item>
-		<item>Libia</item>
-		<item>Lituania</item>
-		<item>Luxemburgo</item>
-		<item>Líbano</item>
-		<item>Macedonia</item>
-		<item>Malasia</item>
-		<item>Malta</item>
-		<item>Marruecos</item>
-		<item>Montenegro</item>
-		<item>México</item>
-		<item>Nicaragua</item>
-		<item>Noruega</item>
-		<item>Nueva Zelanda</item>
-		<item>Omán</item>
-		<item>Panamá</item>
-		<item>Paraguay</item>
-		<item>Perú</item>
-		<item>Polonia</item>
-		<item>Portugal</item>
-		<item>Puerto Rico</item>
-		<item>Qatar</item>
-		<item>Reino Unido</item>
-		<item>República Dominicana</item>
-		<item>Rumania</item>
-		<item>Rusia</item>
-		<item>Serbia</item>
-		<item>Serbia y Montenegro</item>
-		<item>Singapur</item>
-		<item>Siria</item>
-		<item>Sudáfrica</item>
-		<item>Sudán</item>
-		<item>Suecia</item>
-		<item>Suiza</item>
-		<item>Tailandia</item>
-		<item>Taiwán</item>
-		<item>Turquía</item>
-		<item>Túnez</item>
-		<item>Ucrania</item>
-		<item>Uruguay</item>
-		<item>Venezuela</item>
-		<item>Vietnam</item>
-		<item>Yemen</item>
+        <item>Alemania</item>
+        <item>Arabia Saudita</item>
+        <item>Argelia</item>
+        <item>Argentina</item>
+        <item>Australia</item>
+        <item>Austria</item>
+        <item>Bahráin</item>
+        <item>Bielorrusia</item>
+        <item>Bolivia</item>
+        <item>Bosnia y Hercegovina</item>
+        <item>Brasil</item>
+        <item>Bulgaria</item>
+        <item>Bélgica</item>
+        <item>Canadá</item>
+        <item>Chequia</item>
+        <item>Chile</item>
+        <item>China</item>
+        <item>Chipre</item>
+        <item>Colombia</item>
+        <item>Corea del Sur</item>
+        <item>Costa Rica</item>
+        <item>Croacia</item>
+        <item>Cuba</item>
+        <item>Dinamarca</item>
+        <item>Ecuador</item>
+        <item>Egipto</item>
+        <item>El Salvador</item>
+        <item>Emiratos Árabes Unidos</item>
+        <item>Eslovaquia</item>
+        <item>Eslovenia</item>
+        <item>España</item>
+        <item>Estados Unidos</item>
+        <item>Estonia</item>
+        <item>Filipinas</item>
+        <item>Finlandia</item>
+        <item>Francia</item>
+        <item>Grecia</item>
+        <item>Guatemala</item>
+        <item>Holanda</item>
+        <item>Honduras</item>
+        <item>Hong Kong</item>
+        <item>Hungría</item>
+        <item>India</item>
+        <item>Indonesia</item>
+        <item>Iraq</item>
+        <item>Irlanda</item>
+        <item>Islandia</item>
+        <item>Israel</item>
+        <item>Italia</item>
+        <item>Japón</item>
+        <item>Jordania</item>
+        <item>Kuwait</item>
+        <item>Letonia</item>
+        <item>Libia</item>
+        <item>Lituania</item>
+        <item>Luxemburgo</item>
+        <item>Líbano</item>
+        <item>Macedonia</item>
+        <item>Malasia</item>
+        <item>Malta</item>
+        <item>Marruecos</item>
+        <item>Montenegro</item>
+        <item>México</item>
+        <item>Nicaragua</item>
+        <item>Noruega</item>
+        <item>Nueva Zelanda</item>
+        <item>Omán</item>
+        <item>Panamá</item>
+        <item>Paraguay</item>
+        <item>Perú</item>
+        <item>Polonia</item>
+        <item>Portugal</item>
+        <item>Puerto Rico</item>
+        <item>Qatar</item>
+        <item>Reino Unido</item>
+        <item>República Dominicana</item>
+        <item>Rumania</item>
+        <item>Rusia</item>
+        <item>Serbia</item>
+        <item>Serbia y Montenegro</item>
+        <item>Singapur</item>
+        <item>Siria</item>
+        <item>Sudáfrica</item>
+        <item>Sudán</item>
+        <item>Suecia</item>
+        <item>Suiza</item>
+        <item>Tailandia</item>
+        <item>Taiwán</item>
+        <item>Turquía</item>
+        <item>Túnez</item>
+        <item>Ucrania</item>
+        <item>Uruguay</item>
+        <item>Venezuela</item>
+        <item>Vietnam</item>
+        <item>Yemen</item>
     </string-array>
+
+    <string name="title_activity_accounts">Accounts</string>
 
 </resources>
