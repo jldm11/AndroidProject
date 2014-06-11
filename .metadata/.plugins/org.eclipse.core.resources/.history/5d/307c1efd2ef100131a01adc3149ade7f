@@ -1,7 +1,7 @@
 
 #Access with method GET
 getUser = http://192.168.1.95:8080/WebServiceMoneyApp/functions/getUser/
-getAccount = http://192.168.1.101:8080/WebServiceMoneyApp/functions/getAccount/
+getAccount = http://192.168.1.95:8080/WebServiceMoneyApp/functions/getAccount/
 getMovement = http://192.168.1.95:8080/WebServiceMoneyApp/functions/getMovement/
 getDetail = http://192.168.1.95:8080/WebServiceMoneyApp/functions/getDetail/
 

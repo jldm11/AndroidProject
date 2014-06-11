@@ -1,5 +1,11 @@
 package com.example.managemoney;
 
+import java.util.Properties;
+import java.util.concurrent.ExecutionException;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import android.support.v4.app.Fragment;
 import android.app.ListActivity;
 import android.content.Context;
@@ -21,6 +27,9 @@ import android.os.Build;
 
 public class ListAccountView extends ListActivity {
 
+	private AssetsPropertyReader assetsPropertyReader;
+	private Context context;
+	private Properties properties;
 	private Speaker speaker;
 	static final String[] ACCOUNTS = new String[] { "Debit Card",
 			"Work payments", "School payments", "Home expenses" };
@@ -30,25 +39,51 @@ public class ListAccountView extends ListActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		speaker = new Speaker(this);
+		context = this;
 		// setContentView(R.layout.activity_list_account_view);
 		setListAdapter(new ArrayAdapter<String>(this, R.layout.list_account,
 				ACCOUNTS));
 		ListView listView = getListView();
 		listView.setTextFilterEnabled(true);
 		v = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
-
+		assetsPropertyReader = new AssetsPropertyReader(context);
+		properties = assetsPropertyReader.getProperties("urls.properties");
+		//setAccounts("1");
 		listView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				// When clicked, show a toast with the TextView text
 				// Toast.makeText(getApplicationContext(),
 				// ((TextView)view).getText(), Toast.LENGTH_SHORT).show();
-				speaker.speakText("Movements for "+ (String)((TextView)view).getText());
+				speaker.speakText("Movements for "
+						+ (String) ((TextView) view).getText());
 				v.vibrate(500);
 				Intent i = new Intent(ListAccountView.this, MovementsList.class);
 				startActivity(i);
 			}
 		});
+	}
+
+	private String[] setAccounts(String idUser) {
+		String s = properties.getProperty("getAccount");
+		String[] accounts = {};
+		String[] request = { "GET", "account",
+				properties.getProperty("getAccount") + idUser, ""};
+		WebServiceClient wsClient = new WebServiceClient();
+		wsClient.execute(request);
+		JSONObject accountsJSON;
+		try {
+			accountsJSON = wsClient.get();
+			Toast.makeText(getApplicationContext(), accountsJSON.toString() + idUser,
+					 Toast.LENGTH_SHORT).show();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return accounts;
 	}
 
 	@Override
