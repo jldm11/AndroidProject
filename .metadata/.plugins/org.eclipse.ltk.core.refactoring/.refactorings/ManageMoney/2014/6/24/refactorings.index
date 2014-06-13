@@ -1,0 +1,10 @@
+1402547990102	Delete element
+1402548003445	Delete element
+1402619546580	Rename local variable 'accounts'
+1402619641090	Rename local variable 'accountsJSONList'
+1402619670822	Rename local variable 'numberOfAccounts'
+1402619695658	Rename local variable 'movementsJSON'
+1402619703826	Rename local variable 'movementsJSONList'
+1402619712868	Rename local variable 'numberOfMovements'
+1402619760491	Rename local variable 'tempAccount'
+1402619765115	Rename local variable 'tempDetil'

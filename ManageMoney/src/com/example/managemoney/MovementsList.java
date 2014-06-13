@@ -1,5 +1,13 @@
 package com.example.managemoney;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
+import java.util.concurrent.ExecutionException;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.support.v4.app.Fragment;
 import android.app.ListActivity;
@@ -22,31 +30,82 @@ import android.os.Build;
 
 public class MovementsList extends ListActivity {
 
+	private AssetsPropertyReader assetsPropertyReader;
+	private Context context;
+	private Properties properties;
 	private Speaker speaker;
+	private List<Movement> movementsList;
 	static final String[] MOVEMENTS = new String[] {
-		"Income from others: $300", "Monthly payment: $1500","February payment: $800"
-	};
+			"Income from others: $300", "Monthly payment: $1500",
+			"February payment: $800" };
 	Vibrator v;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		speaker = new Speaker(this);
-		setListAdapter(new ArrayAdapter<String>(this, R.layout.list_movement,MOVEMENTS));
+		context = this;
+		assetsPropertyReader = new AssetsPropertyReader(context);
+		properties = assetsPropertyReader.getProperties("urls.properties");
 		ListView listView = getListView();
 		listView.setTextFilterEnabled(true);
+		setListAdapter(new ArrayAdapter<String>(this, R.layout.list_movement,
+				setMovements("5")));// cambiar por idAccount
 		v = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
 		listView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-			    // When clicked, show a toast with the TextView text
-//			    Toast.makeText(getApplicationContext(),	((TextView)view).getText(), Toast.LENGTH_SHORT).show();
-				speaker.speakText("Details for " + (String)((TextView)view).getText());
+				// When clicked, show a toast with the TextView text
+				// Toast.makeText(getApplicationContext(),
+				// ((TextView)view).getText(), Toast.LENGTH_SHORT).show();
+				speaker.speakText("Details for "
+						+ (String) ((TextView) view).getText());
 				v.vibrate(500);
 				Intent i = new Intent(MovementsList.this, DetailsView.class);
 				startActivity(i);
 			}
 		});
-		
+
+	}
+
+	private String[] setMovements(String idAccount) {
+		movementsList = new ArrayList<Movement>();
+		String[] movements = {};
+		String[] request = { "GET", "movement",
+				properties.getProperty("getMovement") + idAccount, "" };
+		WebServiceClient wsClient = new WebServiceClient();
+		wsClient.execute(request);
+		try {
+			JSONObject movementsJSON;
+			movementsJSON = wsClient.get();
+			JSONArray movementsJSONList = movementsJSON.getJSONArray("movements");
+			int numberOfMovement = movementsJSONList.length();
+			movements = new String[numberOfMovement];
+			for (int i = 0; i < numberOfMovement; i++) {
+				JSONObject tempJSONobj = movementsJSONList.getJSONObject(i);
+				Movement tempMovement = new Movement(
+						tempJSONobj.getInt("idMovement"),
+						tempJSONobj.getInt("idAccount"),
+						tempJSONobj.getDouble("amount"),
+						tempJSONobj.getString("type"),
+						tempJSONobj.getString("date"));
+				movementsList.add(tempMovement);
+				if(tempMovement.type == "I")
+					movements[i] = "Entry: $" + tempMovement.amount.toString();
+				else
+					movements[i] = "Expense: $" + tempMovement.amount.toString();
+			}
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return movements;
 	}
 
 	@Override

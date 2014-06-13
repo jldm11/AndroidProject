@@ -1,6 +1,15 @@
 package com.example.managemoney;
 
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
+import java.util.concurrent.ExecutionException;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.support.v4.app.Fragment;
 import android.app.ListActivity;
 import android.content.Context;
@@ -19,16 +28,22 @@ import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class DetailsView extends ListActivity {
-	
+	private AssetsPropertyReader assetsPropertyReader;
+	private Context context;
+	private Properties properties;
 	private Speaker speaker;
 	static final String[] DETAILS = new String[] { "University monthly pay: $450",
 	    "Swimming class: $160" };
 	Vibrator v;
+	private List<Detail> detailsList;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		speaker = new Speaker(this);
-		setListAdapter(new ArrayAdapter<String>(this, R.layout.detail_list,DETAILS));
+		context = this;
+		assetsPropertyReader = new AssetsPropertyReader(context);
+		properties = assetsPropertyReader.getProperties("urls.properties");
+		setListAdapter(new ArrayAdapter<String>(this, R.layout.detail_list,setDetails("1")));//cambiar por idMovement
 		ListView listView = getListView();
 		listView.setTextFilterEnabled(true);
 		v = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
@@ -43,6 +58,41 @@ public class DetailsView extends ListActivity {
 		});
 	}
 
+	private String[] setDetails(String idMovement) {
+		detailsList = new ArrayList<Detail>();
+		String[] details = {};
+		String[] request = { "GET", "detail",
+				properties.getProperty("getDetail") + idMovement, "" };
+		WebServiceClient wsClient = new WebServiceClient();
+		wsClient.execute(request);
+		try {
+			JSONObject detailsJSON;
+			detailsJSON = wsClient.get();
+			JSONArray detailsJSONList = detailsJSON.getJSONArray("details");
+			int numberOfdetails = detailsJSONList.length();
+			details = new String[numberOfdetails];
+			for (int i = 0; i < numberOfdetails; i++) {
+				JSONObject tempJSONobj = detailsJSONList.getJSONObject(i);
+				Detail tempDetail = new Detail(
+						tempJSONobj.getInt("idDetail"),
+						tempJSONobj.getInt("idMovement"),
+						tempJSONobj.getString("description"),
+						tempJSONobj.getDouble("amount"));
+				detailsList.add(tempDetail);
+				details[i] = tempDetail.description;
+			}
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return details;
+	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 

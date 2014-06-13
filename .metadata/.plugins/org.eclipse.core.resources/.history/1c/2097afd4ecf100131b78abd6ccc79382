@@ -1,0 +1,15 @@
+package com.example.managemoney;
+
+public class Account {
+	String idAccount;
+	String idUser; 
+	String status;
+	String accountName;
+	public Account(String idAccount, String idUser, String status,
+			String accountName) {
+		this.idAccount = idAccount;
+		this.idUser = idUser;
+		this.status = status;
+		this.accountName = accountName;
+	}
+}

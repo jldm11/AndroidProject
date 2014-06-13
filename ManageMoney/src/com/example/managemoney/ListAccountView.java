@@ -1,9 +1,12 @@
 package com.example.managemoney;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.support.v4.app.Fragment;
@@ -31,8 +34,7 @@ public class ListAccountView extends ListActivity {
 	private Context context;
 	private Properties properties;
 	private Speaker speaker;
-	static final String[] ACCOUNTS = new String[] { "Debit Card",
-			"Work payments", "School payments", "Home expenses" };
+	private List<Account> accountsList;
 	Vibrator v;
 
 	@Override
@@ -40,15 +42,14 @@ public class ListAccountView extends ListActivity {
 		super.onCreate(savedInstanceState);
 		speaker = new Speaker(this);
 		context = this;
-		// setContentView(R.layout.activity_list_account_view);
-		setListAdapter(new ArrayAdapter<String>(this, R.layout.list_account,
-				ACCOUNTS));
 		ListView listView = getListView();
 		listView.setTextFilterEnabled(true);
 		v = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
 		assetsPropertyReader = new AssetsPropertyReader(context);
 		properties = assetsPropertyReader.getProperties("urls.properties");
-		//setAccounts("1");
+		// setContentView(R.layout.activity_list_account_view);
+				setListAdapter(new ArrayAdapter<String>(this, R.layout.list_account,
+						setAccounts("5")));//cambiar por idUser
 		listView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
@@ -65,21 +66,35 @@ public class ListAccountView extends ListActivity {
 	}
 
 	private String[] setAccounts(String idUser) {
-		String s = properties.getProperty("getAccount");
+		accountsList = new ArrayList<Account>();
 		String[] accounts = {};
 		String[] request = { "GET", "account",
-				properties.getProperty("getAccount") + idUser, ""};
+				properties.getProperty("getAccount") + idUser, "" };
 		WebServiceClient wsClient = new WebServiceClient();
 		wsClient.execute(request);
-		JSONObject accountsJSON;
 		try {
+			JSONObject accountsJSON;
 			accountsJSON = wsClient.get();
-			Toast.makeText(getApplicationContext(), accountsJSON.toString() + idUser,
-					 Toast.LENGTH_SHORT).show();
+			JSONArray accountsJSONList = accountsJSON.getJSONArray("accounts");
+			int numberOfAccounts = accountsJSONList.length();
+			accounts = new String[numberOfAccounts];
+			for (int i = 0; i < numberOfAccounts; i++) {
+				JSONObject tempJSONobj = accountsJSONList.getJSONObject(i);
+				Account tempAccount = new Account(
+						tempJSONobj.getInt("idAccount"),
+						tempJSONobj.getInt("idUser"),
+						tempJSONobj.getString("status"),
+						tempJSONobj.getString("accountName"));
+				accountsList.add(tempAccount);
+				accounts[i] = tempAccount.accountName;
+			}
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
