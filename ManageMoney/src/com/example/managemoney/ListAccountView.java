@@ -4,12 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.support.v4.app.Fragment;
+import android.annotation.SuppressLint;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
@@ -28,7 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.os.Build;
 
-public class ListAccountView extends ListActivity {
+@SuppressLint("NewApi") public class ListAccountView extends ListActivity {
 
 	private AssetsPropertyReader assetsPropertyReader;
 	private Context context;
@@ -110,7 +109,7 @@ public class ListAccountView extends ListActivity {
 		// return true;
 	}
 
-	@Override
+	@SuppressLint("NewApi") @Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long
@@ -118,6 +117,10 @@ public class ListAccountView extends ListActivity {
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			return true;
+		}
+		if(id == R.id.addAccount) {
+			AddAccountPopup popup = new AddAccountPopup();
+			popup.show(getFragmentManager(), "Add Account");
 		}
 		return super.onOptionsItemSelected(item);
 	}

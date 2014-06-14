@@ -126,4 +126,15 @@
     <string name="title_activity_movements_list">MovementsList</string>
     <string name="title_activity_details_view">DetailsView</string>
 
+<!--     Strings para popups -->
+    <string name = "new_account_name">Account name</string>
+    <string name = "new_detail_name">Description</string>
+    <string name = "amount">Amount</string>
+    <string name = "add_button">Add</string>
+    <string name = "cancel_button">Cancel</string>
+   <string-array name="type_options">
+        <item>Expense</item>
+        <item>Deposit</item>
+    </string-array>
+    
 </resources>
