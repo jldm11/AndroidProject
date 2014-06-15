@@ -22,40 +22,6 @@
         android:textColor="@color/black" />
 
     <EditText
-        android:id="@+id/dPass"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/signUpText"
-        android:layout_alignLeft="@+id/dMail"
-        android:layout_marginBottom="175dp"
-        android:ems="10"
-        android:textSize="22sp"
-        android:hint="@string/password"
-        android:inputType="textPassword"
-        android:onClick="speakPassword"/>
-    
-
-    <Button
-        android:id="@+id/loginButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/signUpText"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="60dp"
-        android:onClick="login"
-        android:textSize="22sp"
-        android:text="@string/login" />
-
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/dMail"
-        android:layout_alignLeft="@+id/loginButton"
-        android:layout_marginBottom="32dp"
-        android:src="@drawable/ic_launcher" />
-
-    <EditText
         android:id="@+id/dMail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -66,6 +32,39 @@
         android:hint="@string/email"
         android:inputType="textEmailAddress"
         android:onClick="speakEmail"
+        android:textSize="22sp" />
+
+    <EditText
+        android:id="@+id/dPass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/loginButton"
+        android:layout_alignLeft="@+id/dMail"
+        android:layout_marginBottom="19dp"
+        android:ems="10"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:onClick="speakPassword"
+        android:textSize="22sp" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/loginButton"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="28dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/money_logo" />
+
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/signUpText"
+        android:layout_centerHorizontal="true"
+        android:onClick="login"
+        android:text="@string/login"
         android:textSize="22sp" />
 
 </RelativeLayout>

@@ -61,8 +61,7 @@ public class MainActivity extends ActionBarActivity {
 		v.vibrate(500);
 		speaker.speakText("Sign Up, Please entry your data to register you as a new user");
 	}
-	
-	
+
 	// Hard coded
 	public void login(View view) {
 		Toast.makeText(getApplicationContext(), "Log in", Toast.LENGTH_SHORT)
@@ -71,55 +70,53 @@ public class MainActivity extends ActionBarActivity {
 		speaker.speakText("Logged in");
 		// Intent i = new Intent(MainActivity.this, Accounts.class);
 		Intent i = new Intent(MainActivity.this, ListAccountView.class);
+		i.putExtra("idUser", 5);
 		this.finish();
 		startActivity(i);
 	}
 
-	// public void login(View view) {
-	// EditText editTextEmail = (EditText) findViewById(R.id.dMail),
-	// editTextPassword = (EditText) findViewById(R.id.dPass);
-	// String email = editTextEmail.getText().toString(), password =
-	// editTextPassword
-	// .getText().toString();
-	// // Verify data
-	// //HttpAsyncTask getUserTask = new HttpAsyncTask();
-	// String [] request = {"GET","user",properties.getProperty("getUser") +
-	// email + "/"
-	// + password,""};
-	// WebServiceClient wsClient = new WebServiceClient();
-	// wsClient.execute(request);
-	// JSONObject userJSON;
-	// try {
-	// userJSON = wsClient.get();
-	// String idUser = userJSON.get("idUser").toString();
-	// if (idUser != "0") {
-	// Toast.makeText(getApplicationContext(), "Loged in " + idUser,
-	// Toast.LENGTH_SHORT).show();
-	// speaker.speakText("Logged in");
-	// // change activity
-	// Intent i = new Intent(MainActivity.this, Register.class);
-	// this.finish();
-	// startActivity(i);
-	// }
-	// } catch (InterruptedException e) {
-	// // TODO Auto-generated catch block
-	// e.printStackTrace();
-	// } catch (ExecutionException e) {
-	// // TODO Auto-generated catch block
-	// e.printStackTrace();
-	// } catch (JSONException e) {
-	// // TODO Auto-generated catch block
-	// e.printStackTrace();
-	// }
-	// }
+//	public void login(View view) {
+//		EditText editTextEmail = (EditText) findViewById(R.id.dMail), editTextPassword = (EditText) findViewById(R.id.dPass);
+//		String email = editTextEmail.getText().toString(), password = editTextPassword
+//				.getText().toString();
+//		// Verify data
+//		// HttpAsyncTask getUserTask = new HttpAsyncTask();
+//		String[] request = { "GET", "user",
+//				properties.getProperty("getUser") + email + "/" + password, "" };
+//		WebServiceClient wsClient = new WebServiceClient();
+//		wsClient.execute(request);
+//		JSONObject userJSON;
+//		try {
+//			userJSON = wsClient.get();
+//			String idUser = userJSON.get("idUser").toString();
+//			if (idUser != "0") {
+//				Toast.makeText(getApplicationContext(), "Loged in " + idUser,
+//						Toast.LENGTH_SHORT).show();
+//				speaker.speakText("Logged in");
+//				// change activity
+//				Intent i = new Intent(MainActivity.this, Register.class);
+//				this.finish();
+//				startActivity(i);
+//			}
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (ExecutionException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (JSONException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
 
 	public void openSignUpActivity(View view) {
 		Intent i = new Intent(MainActivity.this, Register.class);
 		this.finish();
-		startActivity(i);	
+		startActivity(i);
 		speakRegisterScreen();
 	}
-	
+
 	// Speak Actions
 	public void speakEmail(View view) {
 		v.vibrate(500);

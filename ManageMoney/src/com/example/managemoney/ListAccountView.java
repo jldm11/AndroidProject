@@ -43,12 +43,14 @@ import android.os.Build;
 		context = this;
 		ListView listView = getListView();
 		listView.setTextFilterEnabled(true);
+		Bundle bundle = getIntent().getExtras();
+		int idUser = bundle.getInt("idUser");
 		v = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
 		assetsPropertyReader = new AssetsPropertyReader(context);
 		properties = assetsPropertyReader.getProperties("urls.properties");
 		// setContentView(R.layout.activity_list_account_view);
 				setListAdapter(new ArrayAdapter<String>(this, R.layout.list_account,
-						setAccounts("5")));//cambiar por idUser
+						setAccounts(idUser)));//cambiar por idUser
 		listView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
@@ -64,7 +66,7 @@ import android.os.Build;
 		});
 	}
 
-	private String[] setAccounts(String idUser) {
+	private String[] setAccounts(int idUser) {
 		accountsList = new ArrayList<Account>();
 		String[] accounts = {};
 		String[] request = { "GET", "account",

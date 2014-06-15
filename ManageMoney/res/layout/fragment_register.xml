@@ -39,7 +39,7 @@
         android:layout_marginTop="185dp"
         android:ems="10"
         android:hint="@string/last_name"
-        android:inputType="textPersonName" 
+        android:inputType="textCapSentences" 
         android:onClick="speakLastName">
     </EditText>
 
@@ -53,7 +53,7 @@
         android:ems="10"
         android:textSize="22sp"
         android:hint="@string/name"
-        android:inputType="textPersonName" 
+        android:inputType="textCapSentences" 
         android:onClick="speakName">
 
         <requestFocus />
