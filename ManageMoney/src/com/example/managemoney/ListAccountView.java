@@ -51,7 +51,6 @@ public class ListAccountView extends ListActivity {
 		properties = assetsPropertyReader.getProperties("urls.properties");
 		setListAdapter(new ArrayAdapter<String>(this, R.layout.list_account,
 				setAccounts(session.getUserDetails().idUser)));
-		recordAccount(1, "cocina", "A");
 		listView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
