@@ -51,6 +51,7 @@ public class MovementsList extends ListActivity {
 		setListAdapter(new ArrayAdapter<String>(this, R.layout.list_movement,
 				setMovements(idAccount)));
 		v = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
+		recordMovement(1, "I", 345.0, "1821-12-2");
 		listView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {

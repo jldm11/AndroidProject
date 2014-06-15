@@ -96,7 +96,7 @@ public class DetailsView extends ListActivity {
 
 	public void recordDetail(int idDetail, String description, double amount) {
 		String[] request = { "POST", "detail",
-				properties.getProperty("insertAccount"),
+				properties.getProperty("insertDetail"),
 				idDetail + "," + description + "," + amount };
 		// Execute POST
 		WebServiceClient wsClient = new WebServiceClient();
