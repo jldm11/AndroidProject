@@ -33,10 +33,7 @@ import android.os.Build;
 	private Context context;
 	private Properties properties;
 	private Speaker speaker;
-	private List<Movement> movementsList;
-	static final String[] MOVEMENTS = new String[] {
-			"Income from others: $300", "Monthly payment: $1500",
-			"February payment: $800" };
+	private List<Movement> movementsList;	
 	Vibrator v;
 
 	@Override
@@ -48,8 +45,10 @@ import android.os.Build;
 		properties = assetsPropertyReader.getProperties("urls.properties");
 		ListView listView = getListView();
 		listView.setTextFilterEnabled(true);
+		Bundle bundle = getIntent().getExtras();
+		int idAccount = bundle.getInt("idAccount");
 		setListAdapter(new ArrayAdapter<String>(this, R.layout.list_movement,
-				setMovements("5")));// cambiar por idAccount
+				setMovements(idAccount)));
 		v = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
 		listView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,
@@ -60,14 +59,16 @@ import android.os.Build;
 				speaker.speakText("Details for "
 						+ (String) ((TextView) view).getText());
 				v.vibrate(500);
+				int idMovement = searchMovement((String) ((TextView) view).getText()); 
 				Intent i = new Intent(MovementsList.this, DetailsView.class);
-				startActivity(i);
+				i.putExtra("idMovement", idMovement);
+				startActivity(i); 
 			}
 		});
 
 	}
 
-	private String[] setMovements(String idAccount) {
+	private String[] setMovements(int idAccount) {
 		movementsList = new ArrayList<Movement>();
 		String[] movements = {};
 		String[] request = { "GET", "movement",
@@ -77,7 +78,8 @@ import android.os.Build;
 		try {
 			JSONObject movementsJSON;
 			movementsJSON = wsClient.get();
-			JSONArray movementsJSONList = movementsJSON.getJSONArray("movements");
+			JSONArray movementsJSONList = movementsJSON
+					.getJSONArray("movements");
 			int numberOfMovement = movementsJSONList.length();
 			movements = new String[numberOfMovement];
 			for (int i = 0; i < numberOfMovement; i++) {
@@ -89,10 +91,11 @@ import android.os.Build;
 						tempJSONobj.getString("type"),
 						tempJSONobj.getString("date"));
 				movementsList.add(tempMovement);
-				if(tempMovement.type == "I")
+				if (tempMovement.type == "I")
 					movements[i] = "Entry: $" + tempMovement.amount.toString();
 				else
-					movements[i] = "Expense: $" + tempMovement.amount.toString();
+					movements[i] = "Expense: $"
+							+ tempMovement.amount.toString();
 			}
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
@@ -107,6 +110,21 @@ import android.os.Build;
 		return movements;
 	}
 
+	private int searchMovement(String name){
+		int idMovement = 0;
+		for (Movement movement : movementsList) {
+			if(("Entry: $" + movement.amount.toString()).equals(name)){
+				idMovement = movement.idMovement;
+				break;
+			}
+			if(("Expense: $" + movement.amount.toString()).equals(name)){
+				idMovement = movement.idMovement;
+				break;
+			}
+		}
+		return idMovement;
+	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -115,7 +133,8 @@ import android.os.Build;
 		return true;
 	}
 
-	@SuppressLint("NewApi") @Override
+	@SuppressLint("NewApi")
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long

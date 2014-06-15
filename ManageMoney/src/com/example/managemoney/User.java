@@ -2,22 +2,15 @@ package com.example.managemoney;
 
 public class User {
 
-	private String userName;
-	private String password;
+	public int idUser;
+	public String userName;
+	public String password;
 
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
+	
+	public User(int idUser, String userName, String password) {
+		super();
+		this.idUser = idUser;
 		this.userName = userName;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
 		this.password = password;
 	}
 

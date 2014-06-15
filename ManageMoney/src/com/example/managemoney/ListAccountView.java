@@ -34,6 +34,7 @@ import android.os.Build;
 	private Properties properties;
 	private Speaker speaker;
 	private List<Account> accountsList;
+	private SessionManager session;
 	Vibrator v;
 
 	@Override
@@ -41,26 +42,24 @@ import android.os.Build;
 		super.onCreate(savedInstanceState);
 		speaker = new Speaker(this);
 		context = this;
+		session = new SessionManager(context);
 		ListView listView = getListView();
 		listView.setTextFilterEnabled(true);
-		Bundle bundle = getIntent().getExtras();
-		int idUser = bundle.getInt("idUser");
 		v = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
 		assetsPropertyReader = new AssetsPropertyReader(context);
 		properties = assetsPropertyReader.getProperties("urls.properties");
-		// setContentView(R.layout.activity_list_account_view);
-				setListAdapter(new ArrayAdapter<String>(this, R.layout.list_account,
-						setAccounts(idUser)));//cambiar por idUser
+		setListAdapter(new ArrayAdapter<String>(this, R.layout.list_account,
+				setAccounts(session.getUserDetails().idUser)));
 		listView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				// When clicked, show a toast with the TextView text
-				// Toast.makeText(getApplicationContext(),
-				// ((TextView)view).getText(), Toast.LENGTH_SHORT).show();
 				speaker.speakText("Movements for "
 						+ (String) ((TextView) view).getText());
 				v.vibrate(500);
 				Intent i = new Intent(ListAccountView.this, MovementsList.class);
+				//Get the idAccount
+				int idAccount = searchAccount((String) ((TextView) view).getText());
+				i.putExtra("idAccount", idAccount);
 				startActivity(i);
 			}
 		});
@@ -102,6 +101,17 @@ import android.os.Build;
 		return accounts;
 	}
 
+	private int searchAccount(String name){
+		int idAccount = 0;
+		for (Account account : accountsList) {
+			if(account.accountName.equals(name)){
+				idAccount = account.idAccount;
+				break;
+			}
+		}
+		return idAccount;
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -110,8 +120,9 @@ import android.os.Build;
 		return super.onCreateOptionsMenu(menu);
 		// return true;
 	}
-
-	@SuppressLint("NewApi") @Override
+	
+	@SuppressLint("NewApi")
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long

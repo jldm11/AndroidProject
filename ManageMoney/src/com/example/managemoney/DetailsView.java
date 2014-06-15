@@ -26,13 +26,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
-@SuppressLint("NewApi") public class DetailsView extends ListActivity {
+public class DetailsView extends ListActivity {
 	private AssetsPropertyReader assetsPropertyReader;
 	private Context context;
 	private Properties properties;
 	private Speaker speaker;
-	static final String[] DETAILS = new String[] { "University monthly pay: $450",
-	    "Swimming class: $160" };
 	Vibrator v;
 	private List<Detail> detailsList;
 	@Override
@@ -42,7 +40,10 @@ import android.widget.AdapterView.OnItemClickListener;
 		context = this;
 		assetsPropertyReader = new AssetsPropertyReader(context);
 		properties = assetsPropertyReader.getProperties("urls.properties");
-		setListAdapter(new ArrayAdapter<String>(this, R.layout.detail_list,setDetails("1")));//cambiar por idMovement
+		Bundle bundle = getIntent().getExtras();
+		int idMovement = bundle.getInt("idMovement");
+		setListAdapter(new ArrayAdapter<String>(this, R.layout.detail_list,
+				setDetails(idMovement)));		
 		ListView listView = getListView();
 		listView.setTextFilterEnabled(true);
 		v = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
@@ -57,7 +58,7 @@ import android.widget.AdapterView.OnItemClickListener;
 		});
 	}
 
-	private String[] setDetails(String idMovement) {
+	private String[] setDetails(int idMovement) {
 		detailsList = new ArrayList<Detail>();
 		String[] details = {};
 		String[] request = { "GET", "detail",
@@ -72,13 +73,12 @@ import android.widget.AdapterView.OnItemClickListener;
 			details = new String[numberOfdetails];
 			for (int i = 0; i < numberOfdetails; i++) {
 				JSONObject tempJSONobj = detailsJSONList.getJSONObject(i);
-				Detail tempDetail = new Detail(
-						tempJSONobj.getInt("idDetail"),
+				Detail tempDetail = new Detail(tempJSONobj.getInt("idDetail"),
 						tempJSONobj.getInt("idMovement"),
 						tempJSONobj.getString("description"),
 						tempJSONobj.getDouble("amount"));
 				detailsList.add(tempDetail);
-				details[i] = tempDetail.description;
+				details[i] = tempDetail.description + ": $" + tempDetail.amount;
 			}
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
@@ -92,6 +92,7 @@ import android.widget.AdapterView.OnItemClickListener;
 		}
 		return details;
 	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -100,7 +101,7 @@ import android.widget.AdapterView.OnItemClickListener;
 		return true;
 	}
 
-	@SuppressLint("NewApi") @Override
+@SuppressLint("NewApi") @Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long

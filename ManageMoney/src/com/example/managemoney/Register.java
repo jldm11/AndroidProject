@@ -49,40 +49,36 @@ public class Register extends ActionBarActivity {
 
 	}
 
-	public void recordUser(View view){
-		Toast.makeText(getApplicationContext(), "signup", Toast.LENGTH_SHORT)
-		.show();
-		v.vibrate(500);
-		speakSignUp();
-		changeActivity();		
-	}
-	
-	public void changeActivity(){
+	public void changeActivity() {
 		Intent i = new Intent(Register.this, ListAccountView.class);
 		startActivity(i);
 		this.finish();
 	}
-//	public void recordUser(View view) {
-//		Toast.makeText(getApplicationContext(), "signup", Toast.LENGTH_SHORT)
-//				.show();
-//		// Get user data
-//		EditText editTextName = (EditText) findViewById(R.id.registerName), editTextLastName = (EditText) findViewById(R.id.registerLastName), editTextEmail = (EditText) findViewById(R.id.registerEmail), editTextPassword = (EditText) findViewById(R.id.registerPassword);
-//		Spinner spinnerCountry = (Spinner) findViewById(R.id.countrySpinner);
-//		String name = editTextName.getText().toString(), lastName = editTextLastName
-//				.getText().toString(), country = spinnerCountry
-//				.getSelectedItem().toString(), email = editTextEmail.getText()
-//				.toString(), password = editTextPassword.getText().toString();
-//		String[] request = {
-//				"POST",
-//				"user",
-//				properties.getProperty("insertUser"),
-//				name + "," + lastName + "," + "" + "," + country + "," + email
-//						+ "," + password };
-//		// Execute POST
-//		WebServiceClient wsClient = new WebServiceClient();
-//		wsClient.execute(request);
-//		speakSignUp();
-//	}
+
+	public void recordUser(View view) {
+		Toast.makeText(getApplicationContext(), "signup", Toast.LENGTH_SHORT)
+				.show();
+		// Get user data
+		EditText editTextName = (EditText) findViewById(R.id.registerName), editTextLastName = (EditText) findViewById(R.id.registerLastName), editTextEmail = (EditText) findViewById(R.id.registerEmail), editTextPassword = (EditText) findViewById(R.id.registerPassword);
+		Spinner spinnerCountry = (Spinner) findViewById(R.id.countrySpinner);
+		String name = editTextName.getText().toString(), lastName = editTextLastName
+				.getText().toString(), country = spinnerCountry
+				.getSelectedItem().toString(), email = editTextEmail.getText()
+				.toString(), password = editTextPassword.getText().toString();
+		String[] request = {
+				"POST",
+				"user",
+				properties.getProperty("insertUser"),
+				name + "," + lastName + "," + "" + "," + country + "," + email
+						+ "," + password };
+		// Execute POST
+		WebServiceClient wsClient = new WebServiceClient();
+		wsClient.execute(request);
+		speakSignUp();
+		Intent i = new Intent(Register.this, MainActivity.class);
+		startActivity(i);
+		this.finish();
+	}
 
 	// Speak Actions
 	public void speakName(View view) {
@@ -114,18 +110,6 @@ public class Register extends ActionBarActivity {
 		v.vibrate(500);
 		speaker.speakText("This are your available accounts");
 	}
-
-	// private void addItemsOnSpinner() {
-	// spinner = (Spinner) findViewById(R.id.countrySpinner);
-	//
-	// Countries country = new Countries();
-	// List<String> coun = country.getCountries();
-	//
-	// ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-	// android.R.layout.simple_spinner_item, coun);
-	// dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-	// spinner.setAdapter(dataAdapter);
-	// }
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

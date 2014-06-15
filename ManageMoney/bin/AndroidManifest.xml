@@ -29,23 +29,28 @@
         </activity>
         <activity
             android:name="com.example.managemoney.Register"
-            android:label="@string/title_activity_register" >
+            android:label="@string/title_activity_register" 
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name="com.example.managemoney.Accounts"
-            android:label="@string/title_activity_accounts" >
+            android:label="@string/title_activity_accounts"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.example.managemoney.ListAccountView"
-            android:label="@string/title_activity_list_account_view" >
+            android:label="@string/title_activity_list_account_view"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.example.managemoney.MovementsList"
-            android:label="@string/title_activity_movements_list" >
+            android:label="@string/title_activity_movements_list"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.example.managemoney.DetailsView"
-            android:label="@string/title_activity_details_view" >
+            android:label="@string/title_activity_details_view"
+            android:screenOrientation="portrait" >
         </activity>
     </application>
 

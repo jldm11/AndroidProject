@@ -32,12 +32,14 @@ public class MainActivity extends ActionBarActivity {
 	private Properties properties;
 	private Speaker speaker;
 	private Vibrator v;
+	private SessionManager session;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		context = this;
+		session = new SessionManager(context);
 		speaker = new Speaker(context);
 		v = (Vibrator) this.context.getSystemService(Context.VIBRATOR_SERVICE);
 		assetsPropertyReader = new AssetsPropertyReader(context);
@@ -62,53 +64,43 @@ public class MainActivity extends ActionBarActivity {
 		speaker.speakText("Sign Up, Please entry your data to register you as a new user");
 	}
 
-	// Hard coded
 	public void login(View view) {
-		Toast.makeText(getApplicationContext(), "Log in", Toast.LENGTH_SHORT)
-				.show();
-		v.vibrate(500);
-		speaker.speakText("Logged in");
-		// Intent i = new Intent(MainActivity.this, Accounts.class);
-		Intent i = new Intent(MainActivity.this, ListAccountView.class);
-		i.putExtra("idUser", 5);
-		this.finish();
-		startActivity(i);
+		EditText editTextEmail = (EditText) findViewById(R.id.dMail), editTextPassword = (EditText) findViewById(R.id.dPass);
+		String email = editTextEmail.getText().toString(), password = editTextPassword
+				.getText().toString();
+		// Verify data
+		// HttpAsyncTask getUserTask = new HttpAsyncTask();
+		String[] request = { "GET", "user",
+				properties.getProperty("getUser") + email + "/" + password, "" };
+		WebServiceClient wsClient = new WebServiceClient();
+		wsClient.execute(request);
+		JSONObject userJSON;
+		try {
+			userJSON = wsClient.get();
+			String idUser = userJSON.get("idUser").toString();
+			if (idUser != "0") {
+				Toast.makeText(getApplicationContext(), "Loged in " + idUser,
+						Toast.LENGTH_SHORT).show();
+				v.vibrate(500);
+				speaker.speakText("Logged in");
+				session.createLoginSession(Integer.parseInt(idUser),
+						userJSON.getString("name"), userJSON.getString("email"));
+				// change activity
+				Intent i = new Intent(MainActivity.this, ListAccountView.class);
+				startActivity(i);
+				this.finish();
+			}
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
-
-//	public void login(View view) {
-//		EditText editTextEmail = (EditText) findViewById(R.id.dMail), editTextPassword = (EditText) findViewById(R.id.dPass);
-//		String email = editTextEmail.getText().toString(), password = editTextPassword
-//				.getText().toString();
-//		// Verify data
-//		// HttpAsyncTask getUserTask = new HttpAsyncTask();
-//		String[] request = { "GET", "user",
-//				properties.getProperty("getUser") + email + "/" + password, "" };
-//		WebServiceClient wsClient = new WebServiceClient();
-//		wsClient.execute(request);
-//		JSONObject userJSON;
-//		try {
-//			userJSON = wsClient.get();
-//			String idUser = userJSON.get("idUser").toString();
-//			if (idUser != "0") {
-//				Toast.makeText(getApplicationContext(), "Loged in " + idUser,
-//						Toast.LENGTH_SHORT).show();
-//				speaker.speakText("Logged in");
-//				// change activity
-//				Intent i = new Intent(MainActivity.this, Register.class);
-//				this.finish();
-//				startActivity(i);
-//			}
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (ExecutionException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (JSONException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
 
 	public void openSignUpActivity(View view) {
 		Intent i = new Intent(MainActivity.this, Register.class);
@@ -150,24 +142,6 @@ public class MainActivity extends ActionBarActivity {
 			return false;
 	}
 
-	// @Override
-	// public boolean onOptionsItemSelected(MenuItem item) {
-	// // Handle action bar item clicks here. The action bar will
-	// // automatically handle clicks on the Home/Up button, so long
-	// // as you specify a parent activity in AndroidManifest.xml.
-	// int id = item.getItemId();
-	// // if (id == R.id.action_settings) {
-	// // return true;
-	// // }
-	// return super.onOptionsItemSelected(item);
-	// }
-	// private class HttpAsyncTask extends AsyncTask<String, Void, JSONObject> {
-	// @Override
-	// protected JSONObject doInBackground(String... urls) {
-	//
-	// return wsClient.getJSONFromURL(urls[0]);
-	// }
-	// }
 
 	/**
 	 * A placeholder fragment containing a simple view.
