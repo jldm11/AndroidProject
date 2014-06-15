@@ -27,7 +27,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.os.Build;
 
-@SuppressLint("NewApi") public class ListAccountView extends ListActivity {
+@SuppressLint("NewApi")
+public class ListAccountView extends ListActivity {
 
 	private AssetsPropertyReader assetsPropertyReader;
 	private Context context;
@@ -57,8 +58,9 @@ import android.os.Build;
 						+ (String) ((TextView) view).getText());
 				v.vibrate(500);
 				Intent i = new Intent(ListAccountView.this, MovementsList.class);
-				//Get the idAccount
-				int idAccount = searchAccount((String) ((TextView) view).getText());
+				// Get the idAccount
+				int idAccount = searchAccount((String) ((TextView) view)
+						.getText());
 				i.putExtra("idAccount", idAccount);
 				startActivity(i);
 			}
@@ -101,17 +103,26 @@ import android.os.Build;
 		return accounts;
 	}
 
-	private int searchAccount(String name){
+	private int searchAccount(String name) {
 		int idAccount = 0;
 		for (Account account : accountsList) {
-			if(account.accountName.equals(name)){
+			if (account.accountName.equals(name)) {
 				idAccount = account.idAccount;
 				break;
 			}
 		}
 		return idAccount;
 	}
-	
+
+	public void recordAccount(int idUser, String accountName, String status) {
+		String[] request = { "POST", "account",
+				properties.getProperty("insertAccount"),
+				idUser + "," + status + "," + accountName };
+		// Execute POST
+		WebServiceClient wsClient = new WebServiceClient();
+		wsClient.execute(request);
+	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -120,7 +131,7 @@ import android.os.Build;
 		return super.onCreateOptionsMenu(menu);
 		// return true;
 	}
-	
+
 	@SuppressLint("NewApi")
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -131,7 +142,7 @@ import android.os.Build;
 		if (id == R.id.action_settings) {
 			return true;
 		}
-		if(id == R.id.addAccount) {
+		if (id == R.id.addAccount) {
 			AddAccountPopup popup = new AddAccountPopup();
 			popup.show(getFragmentManager(), "Add Account");
 		}

@@ -27,13 +27,14 @@ import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.os.Build;
 
-@SuppressLint("NewApi") public class MovementsList extends ListActivity {
+@SuppressLint("NewApi")
+public class MovementsList extends ListActivity {
 
 	private AssetsPropertyReader assetsPropertyReader;
 	private Context context;
 	private Properties properties;
 	private Speaker speaker;
-	private List<Movement> movementsList;	
+	private List<Movement> movementsList;
 	Vibrator v;
 
 	@Override
@@ -59,10 +60,11 @@ import android.os.Build;
 				speaker.speakText("Details for "
 						+ (String) ((TextView) view).getText());
 				v.vibrate(500);
-				int idMovement = searchMovement((String) ((TextView) view).getText()); 
+				int idMovement = searchMovement((String) ((TextView) view)
+						.getText());
 				Intent i = new Intent(MovementsList.this, DetailsView.class);
 				i.putExtra("idMovement", idMovement);
-				startActivity(i); 
+				startActivity(i);
 			}
 		});
 
@@ -110,19 +112,28 @@ import android.os.Build;
 		return movements;
 	}
 
-	private int searchMovement(String name){
+	private int searchMovement(String name) {
 		int idMovement = 0;
 		for (Movement movement : movementsList) {
-			if(("Entry: $" + movement.amount.toString()).equals(name)){
+			if (("Entry: $" + movement.amount.toString()).equals(name)) {
 				idMovement = movement.idMovement;
 				break;
 			}
-			if(("Expense: $" + movement.amount.toString()).equals(name)){
+			if (("Expense: $" + movement.amount.toString()).equals(name)) {
 				idMovement = movement.idMovement;
 				break;
 			}
 		}
 		return idMovement;
+	}
+
+	public void recordMovement(int idAccount, String type, Double amount, String date) {
+		String[] request = { "POST", "movement",
+				properties.getProperty("insertMovement"),
+				idAccount + "," + amount + "," + type + "," + date };
+		// Execute POST
+		WebServiceClient wsClient = new WebServiceClient();
+		wsClient.execute(request);
 	}
 
 	@Override
@@ -143,7 +154,7 @@ import android.os.Build;
 		if (id == R.id.action_settings) {
 			return true;
 		}
-		if(id == R.id.addAccount) {
+		if (id == R.id.addAccount) {
 			AddMovementPopup popup = new AddMovementPopup();
 			popup.show(getFragmentManager(), "Add Movement");
 		}

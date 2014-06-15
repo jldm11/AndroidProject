@@ -1,6 +1,5 @@
 package com.example.managemoney;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -33,6 +32,7 @@ public class DetailsView extends ListActivity {
 	private Speaker speaker;
 	Vibrator v;
 	private List<Detail> detailsList;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -43,17 +43,18 @@ public class DetailsView extends ListActivity {
 		Bundle bundle = getIntent().getExtras();
 		int idMovement = bundle.getInt("idMovement");
 		setListAdapter(new ArrayAdapter<String>(this, R.layout.detail_list,
-				setDetails(idMovement)));		
+				setDetails(idMovement)));
 		ListView listView = getListView();
 		listView.setTextFilterEnabled(true);
 		v = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
 		listView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-			    // When clicked, show a toast with the TextView text
-				speaker.speakText((String)((TextView)view).getText());
+				// When clicked, show a toast with the TextView text
+				speaker.speakText((String) ((TextView) view).getText());
 				v.vibrate(500);
-			    Toast.makeText(getApplicationContext(),	((TextView)view).getText(), Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(),
+						((TextView) view).getText(), Toast.LENGTH_SHORT).show();
 			}
 		});
 	}
@@ -92,7 +93,16 @@ public class DetailsView extends ListActivity {
 		}
 		return details;
 	}
-	
+
+	public void recordDetail(int idDetail, String description, double amount) {
+		String[] request = { "POST", "detail",
+				properties.getProperty("insertAccount"),
+				idDetail + "," + description + "," + amount };
+		// Execute POST
+		WebServiceClient wsClient = new WebServiceClient();
+		wsClient.execute(request);
+	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -101,7 +111,8 @@ public class DetailsView extends ListActivity {
 		return true;
 	}
 
-@SuppressLint("NewApi") @Override
+	@SuppressLint("NewApi")
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long
@@ -110,7 +121,7 @@ public class DetailsView extends ListActivity {
 		if (id == R.id.action_settings) {
 			return true;
 		}
-		if(id == R.id.addAccount) {
+		if (id == R.id.addAccount) {
 			AddDetailPopup popup = new AddDetailPopup();
 			popup.show(getFragmentManager(), "Add Detail");
 		}
