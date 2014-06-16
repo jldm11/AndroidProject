@@ -37,6 +37,7 @@ public class ListAccountView extends ListActivity {
 	private List<Account> accountsList;
 	private SessionManager session;
 	Vibrator v;
+	private int idUser = 0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +50,8 @@ public class ListAccountView extends ListActivity {
 		v = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
 		assetsPropertyReader = new AssetsPropertyReader(context);
 		properties = assetsPropertyReader.getProperties("urls.properties");
-		setListAdapter(new ArrayAdapter<String>(this, R.layout.list_account,
-				setAccounts(session.getUserDetails().idUser)));
+		idUser = session.getUserDetails().idUser;
+		updateAccountList(idUser);
 		listView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
@@ -65,6 +66,11 @@ public class ListAccountView extends ListActivity {
 				startActivity(i);
 			}
 		});
+	}
+	
+	public void updateAccountList(int idUser){
+		setListAdapter(new ArrayAdapter<String>(this, R.layout.list_account,
+				setAccounts(idUser)));
 	}
 
 	private String[] setAccounts(int idUser) {
@@ -114,14 +120,14 @@ public class ListAccountView extends ListActivity {
 		return idAccount;
 	}
 
-	public void recordAccount(int idUser, String accountName, String status) {
-		String[] request = { "POST", "account",
-				properties.getProperty("insertAccount"),
-				idUser + "," + status + "," + accountName };
-		// Execute POST
-		WebServiceClient wsClient = new WebServiceClient();
-		wsClient.execute(request);
-	}
+//	public void recordAccount(int idUser, String accountName, String status) {
+//		String[] request = { "POST", "account",
+//				properties.getProperty("insertAccount"),
+//				idUser + "," + status + "," + accountName };
+//		// Execute POST
+//		WebServiceClient wsClient = new WebServiceClient();
+//		wsClient.execute(request);
+//	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -144,6 +150,8 @@ public class ListAccountView extends ListActivity {
 		}
 		if (id == R.id.addAccount) {
 			AddAccountPopup popup = new AddAccountPopup();
+			popup.setIdUser(idUser);
+			popup.setProperties(properties);
 			popup.show(getFragmentManager(), "Add Account");
 		}
 		return super.onOptionsItemSelected(item);

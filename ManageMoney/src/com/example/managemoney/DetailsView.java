@@ -32,6 +32,7 @@ public class DetailsView extends ListActivity {
 	private Speaker speaker;
 	Vibrator v;
 	private List<Detail> detailsList;
+	private int idMovement;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +42,7 @@ public class DetailsView extends ListActivity {
 		assetsPropertyReader = new AssetsPropertyReader(context);
 		properties = assetsPropertyReader.getProperties("urls.properties");
 		Bundle bundle = getIntent().getExtras();
-		int idMovement = bundle.getInt("idMovement");
+		idMovement = bundle.getInt("idMovement");
 		setListAdapter(new ArrayAdapter<String>(this, R.layout.detail_list,
 				setDetails(idMovement)));
 		ListView listView = getListView();
@@ -94,15 +95,6 @@ public class DetailsView extends ListActivity {
 		return details;
 	}
 
-	public void recordDetail(int idDetail, String description, double amount) {
-		String[] request = { "POST", "detail",
-				properties.getProperty("insertDetail"),
-				idDetail + "," + description + "," + amount };
-		// Execute POST
-		WebServiceClient wsClient = new WebServiceClient();
-		wsClient.execute(request);
-	}
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -123,6 +115,8 @@ public class DetailsView extends ListActivity {
 		}
 		if (id == R.id.addAccount) {
 			AddDetailPopup popup = new AddDetailPopup();
+			popup.setProperties(properties);
+			popup.setIdMove(idMovement);
 			popup.show(getFragmentManager(), "Add Detail");
 		}
 		return super.onOptionsItemSelected(item);
