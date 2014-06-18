@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import android.support.v4.app.Fragment;
 import android.annotation.SuppressLint;
 import android.app.ListActivity;
@@ -69,8 +71,10 @@ public class ListAccountView extends ListActivity {
 	}
 	
 	public void updateAccountList(int idUser){
-		setListAdapter(new ArrayAdapter<String>(this, R.layout.list_account,
-				setAccounts(idUser)));
+		ArrayAdapter<String> adapter =new ArrayAdapter<String>(this, R.layout.list_account,
+				setAccounts(idUser)); 
+		setListAdapter(adapter);
+		adapter.notifyDataSetChanged();
 	}
 
 	private String[] setAccounts(int idUser) {
@@ -152,6 +156,7 @@ public class ListAccountView extends ListActivity {
 			AddAccountPopup popup = new AddAccountPopup();
 			popup.setIdUser(idUser);
 			popup.setProperties(properties);
+			popup.setList(this);
 			popup.show(getFragmentManager(), "Add Account");
 		}
 		return super.onOptionsItemSelected(item);

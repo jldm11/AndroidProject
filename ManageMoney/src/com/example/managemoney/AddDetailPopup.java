@@ -1,5 +1,6 @@
 package com.example.managemoney;
 
+import java.util.List;
 import java.util.Properties;
 
 import android.annotation.SuppressLint;
@@ -18,6 +19,7 @@ public class AddDetailPopup extends DialogFragment {
 
 	private int idMove = 0;
 	private Properties properties;
+	private DetailsView detailsList;
 
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -43,8 +45,9 @@ public class AddDetailPopup extends DialogFragment {
 										.toString();
 								double amount = Double.parseDouble(am);
 								recordDetail(getIdMove(), descp, amount);
+								detailsList.updateDetails();
 								Toast.makeText(getActivity().getBaseContext(),
-										descp + " " + amount,
+										"Detail added",
 										Toast.LENGTH_SHORT).show();
 							}
 						})
@@ -66,6 +69,10 @@ public class AddDetailPopup extends DialogFragment {
 		// Execute POST
 		WebServiceClient wsClient = new WebServiceClient();
 		wsClient.execute(request);
+	}
+
+	public void setList(DetailsView detailsList) {
+		this.detailsList = detailsList;
 	}
 
 	public void setProperties(Properties properties) {

@@ -43,8 +43,7 @@ public class DetailsView extends ListActivity {
 		properties = assetsPropertyReader.getProperties("urls.properties");
 		Bundle bundle = getIntent().getExtras();
 		idMovement = bundle.getInt("idMovement");
-		setListAdapter(new ArrayAdapter<String>(this, R.layout.detail_list,
-				setDetails(idMovement)));
+		updateDetails();
 		ListView listView = getListView();
 		listView.setTextFilterEnabled(true);
 		v = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
@@ -58,6 +57,11 @@ public class DetailsView extends ListActivity {
 						((TextView) view).getText(), Toast.LENGTH_SHORT).show();
 			}
 		});
+	}
+
+	public void updateDetails() {
+		setListAdapter(new ArrayAdapter<String>(this, R.layout.detail_list,
+				setDetails(idMovement)));
 	}
 
 	private String[] setDetails(int idMovement) {
@@ -117,6 +121,7 @@ public class DetailsView extends ListActivity {
 			AddDetailPopup popup = new AddDetailPopup();
 			popup.setProperties(properties);
 			popup.setIdMove(idMovement);
+			popup.setList(this);
 			popup.show(getFragmentManager(), "Add Detail");
 		}
 		return super.onOptionsItemSelected(item);

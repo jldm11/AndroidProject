@@ -78,7 +78,7 @@ public class MainActivity extends ActionBarActivity {
 		try {
 			userJSON = wsClient.get();
 			String idUser = userJSON.get("idUser").toString();
-			if (idUser != "0") {
+			if (!idUser.equals("0")) {
 				Toast.makeText(getApplicationContext(), "Loged in " + idUser,
 						Toast.LENGTH_SHORT).show();
 				v.vibrate(500);
@@ -89,6 +89,12 @@ public class MainActivity extends ActionBarActivity {
 				Intent i = new Intent(MainActivity.this, ListAccountView.class);
 				startActivity(i);
 				this.finish();
+			} else {
+				editTextEmail.setText("");
+				editTextPassword.setText("");
+				findViewById(R.id.dMail).requestFocus();
+				Toast.makeText(getApplicationContext(), "Wrong data",
+						Toast.LENGTH_SHORT).show();
 			}
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block

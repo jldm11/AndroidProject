@@ -35,6 +35,7 @@ public class MovementsList extends ListActivity {
 	private Properties properties;
 	private Speaker speaker;
 	private List<Movement> movementsList;
+	private int idAccount;
 	Vibrator v;
 
 	@Override
@@ -47,9 +48,8 @@ public class MovementsList extends ListActivity {
 		ListView listView = getListView();
 		listView.setTextFilterEnabled(true);
 		Bundle bundle = getIntent().getExtras();
-		int idAccount = bundle.getInt("idAccount");
-		setListAdapter(new ArrayAdapter<String>(this, R.layout.list_movement,
-				setMovements(idAccount)));
+		idAccount = bundle.getInt("idAccount");
+		updateMovements();
 		v = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
 		listView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,
@@ -68,6 +68,11 @@ public class MovementsList extends ListActivity {
 			}
 		});
 
+	}
+	
+	public void updateMovements(){
+		setListAdapter(new ArrayAdapter<String>(this, R.layout.list_movement,
+				setMovements(idAccount)));
 	}
 
 	private String[] setMovements(int idAccount) {
@@ -127,15 +132,6 @@ public class MovementsList extends ListActivity {
 		return idMovement;
 	}
 
-	public void recordMovement(int idAccount, String type, Double amount, String date) {
-		String[] request = { "POST", "movement",
-				properties.getProperty("insertMovement"),
-				idAccount + "," + amount + "," + type + "," + date };
-		// Execute POST
-		WebServiceClient wsClient = new WebServiceClient();
-		wsClient.execute(request);
-	}
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -156,6 +152,9 @@ public class MovementsList extends ListActivity {
 		}
 		if (id == R.id.addAccount) {
 			AddMovementPopup popup = new AddMovementPopup();
+			popup.setIdAccount(idAccount);
+			popup.setProperties(properties);
+			popup.setList(this);
 			popup.show(getFragmentManager(), "Add Movement");
 		}
 		return super.onOptionsItemSelected(item);

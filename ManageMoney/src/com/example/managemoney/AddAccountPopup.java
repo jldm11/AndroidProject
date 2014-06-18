@@ -21,6 +21,7 @@ public class AddAccountPopup extends DialogFragment {
 
 	private int idUser = 0;
 	private Properties properties;
+	private ListAccountView list;
 
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -42,7 +43,11 @@ public class AddAccountPopup extends DialogFragment {
 								String text = ((TextView) name).getText()
 										.toString();
 								recordAccount(getUserId(), text, "A");
-								
+								list.updateAccountList(getUserId());
+								Toast.makeText(getActivity().getBaseContext(),
+										"Account added", Toast.LENGTH_SHORT)
+										.show();
+
 							}
 						})
 				.setNegativeButton(R.string.cancel_button,
@@ -64,10 +69,12 @@ public class AddAccountPopup extends DialogFragment {
 		this.idUser = id;
 	}
 
+	public void setList(ListAccountView list) {
+		this.list = list;
+	}
+
 	public void recordAccount(int idUser, String accountName, String status) {
-		// Toast.makeText(getActivity().getBaseContext(),
-		// idUser + " " + accountName + " " + status, Toast.LENGTH_SHORT)
-		// .show();
+
 		String[] request = { "POST", "account",
 				properties.getProperty("insertAccount"),
 				idUser + "," + status + "," + accountName };
@@ -77,7 +84,7 @@ public class AddAccountPopup extends DialogFragment {
 		// }
 	}
 
- 	public void setProperties(Properties properties) {
+	public void setProperties(Properties properties) {
 		this.properties = properties;
 	}
 
